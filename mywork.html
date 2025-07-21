@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HealthLink Pharmacy - Your Trusted Healthcare Partner</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="B.LORD.css">
+    <script src="CODE.JS"></script>  
+</head>
+<body>
+    <!-- Header with Logo -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="logo-text">Health<span>Link</span></div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('prescription')">Prescription</a></li>
+                    <li><a href="#" onclick="showPage('stores')">Find Stores</a></li>
+                    <li><a href="#" onclick="showPage('payment')">Checkout</a></li>
+                </ul>
+            </nav>
+            <div class="nav-btns">
+                <a href="#" class="btn"><i class="fas fa-user"></i> Sign In</a>
+                <div class="cart-badge" onclick="showPage('payment')">
+                    <i class="fas fa-shopping-cart cart-icon"></i>
+                    <div class="cart-count" id="cart-badge">0</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <section id="home-page" class="page active">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="container">
+                <h1>Your Health, Our Priority</h1>
+                <p>HealthLink Pharmacy provides prescription delivery, health consultations, and personalized care to keep you healthy from the comfort of your home.</p>
+                <div class="hero-btns">
+                    <a href="#" onclick="showPage('prescription')" class="btn"><i class="fas fa-prescription-bottle-alt"></i> Submit Prescription</a>
+                    <a href="#" onclick="showPage('stores')" class="btn btn-outline"><i class="fas fa-map-marker-alt"></i> Find Nearby Stores</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="features">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Services</h2>
+                    <p> 20% off every Friday </p>
+                    <p>Comprehensive pharmaceutical care designed for your convenience and well-being</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Free Delivery</h3>
+                            <p>Get your medications delivered to your doorstep within 24 hours, absolutely free.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Pharmacist Consultation</h3>
+                            <p>Free consultations with our licensed pharmacists for medication advice and health guidance.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-prescription"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Digital Prescription</h3>
+                            <p>Upload your prescriptions digitally for quick processing and refill reminders.</p>
+                            <input type="file" id="prescription-upload" accept="image/*">
+                            <button id="camera-button"> Take a photo </button>
+                            <script>
+                                // Get the elements
+const cameraButton = document.getElementById('camera-button');
+const fileInput = document.getElementById('prescription-upload');
+
+// Add event listener to the camera button
+cameraButton.addEventListener('click', async () => {
+  try {
+    // Request access to the camera
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    // Create a video element to display the camera feed
+    const video = document.createElement('video');
+    video.srcObject = stream;
+    video.play();
+    // Add a button to capture the photo
+    const captureButton = document.createElement('button');
+    captureButton.textContent = 'Capture';
+    captureButton.addEventListener('click', () => {
+      // Create a canvas element to capture the photo
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      // Convert the canvas to a blob and upload it
+      canvas.toBlob((blob) => {
+        const file = new File([blob], 'prescription.jpg', { type: 'image/jpeg' });
+        // Upload the file to your server
+        uploadFile(file);
+      }, 'image/jpeg');
+    });
+    // Add the video and capture button to the page
+    document.body.appendChild(video);
+    document.body.appendChild(captureButton);
+  } catch (error) {
+    console.error('Error accessing camera:', error);
+  }
+});
+
+// Add event listener to the file input
+fileInput.addEventListener('change', (event) => {
+  const file = event.target.files[0];
+  // Upload the file to your server
+  uploadFile(file);
+});
+
+// Function to upload the file to your server
+function uploadFile(file) {
+  // Implement your file upload logic here
+  // You can use the Fetch API or a library like Axios to send the file to your server
+}
+
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- How It Works Guide -->
+        <div class="features" style="background-color: #f0f7ff;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>How HealthLink Works</h2>
+                    <p>Simple steps to get your medications delivered safely to your home</p>
+                </div>
+                <div class="guide-steps">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">
+                            <i class="fas fa-file-medical"></i>
+                        </div>
+                        <h3>Submit Prescription</h3>
+                        <p>Upload your prescription details and health information through our secure platform.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <h3>Health Review</h3>
+                        <p>Our pharmacists review your prescription and health information for safety.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">
+                            <i class="fas fa-capsules"></i>
+                        </div>
+                        <h3>Medicine Selection</h3>
+                        <p>Choose from our wide range of medications with detailed information.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <div class="step-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3>Secure Payment</h3>
+                        <p>Pay securely with MTN MoMo, Visa or other payment methods.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prescription Page -->
+    <section id="prescription-page" class="page">
+        <div class="prescription">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Prescription Services</h2>
+                    <p>Fill out your prescription details and health information for a seamless experience</p>
+                </div>
+                <div class="prescription-container">
+                    <div class="prescription-form">
+                        <h3 class="form-title">Prescription Details</h3>
+                        <form id="prescriptionForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="fullName">Full Name</label>
+                                    <input type="text" id="fullName" class="form-control" placeholder="John Doe" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" class="form-control" placeholder="(233) 123-4567" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="weight">Weight (kg)</label>
+                                    <input type="number" id="weight" class="form-control" placeholder="70" min="1" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="temperature">Temperature (°F)</label>
+                                    <input type="number" id="temperature" class="form-control" placeholder="98.6" min="90" max="110" step="0.1" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="symptoms">Symptoms / Condition</label>
+                                <textarea id="symptoms" class="form-control" placeholder="Describe your symptoms or condition..." required></textarea>
+                            </div>
+                            
+                            <h4 style="margin: 30px 0 15px;">Select Medications</h4>
+                            <div class="medicine-grid" id="medicineSelection">
+                                <!-- Medicines will be populated by JavaScript -->
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="instructions">Special Instructions</label>
+                                <textarea id="instructions" class="form-control" placeholder="Any specific instructions for taking the medication..."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="delivery">Delivery Preference</label>
+                                <select id="delivery" class="form-control" required>
+                                    <option value="">Select delivery option</option>
+                                    <option value="home">Home Delivery</option>
+                                    <option value="pickup">Store Pickup</option>
+                                </select>
+                            </div>
+                            
+                            <button type="button" onclick="processPrescription()" class="btn submit-btn">Review Prescription</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Store Locator Page -->
+    <section id="stores-page" class="page">
+        <div class="stores">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Find Nearby Stores</h2>
+                    <p>Locate our pharmacies near you for in-person consultations and immediate pickups</p>
+                </div>
+                   
+            
+                <div class="new">
+
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.9270175872116!2d-1.2934293277766098!3d5.11546449486159!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfddfed6fc798569%3A0x7531c2a02fe48636!2sUniversity%20Of%20Cape%20Coast!5e0!3m2!1sen!2sgh!4v1753100777547!5m2!1sen!2sgh"
+                     width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+                <div class="stores-container">
+                    <div class="stores-map">
+                        <div class="map-overlay">
+                     
+                            <script>
+                                // Load the Google Maps API
+const script = document.createElement('script');
+script.src = https //maps.googleapis.com/maps/api/js?key=YOUR_API_KEY;
+document.head.appendChild(script);
+
+// Initialize the map
+function initMap() {
+  const map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: 37.7749, lng: -122.4194 },
+    zoom: 12,
+  });
+}
+
+// Call the initMap function when the API is loaded
+script.onload = initMap;
+                           
+                           </script>
+                        </div>
+                    </div>
+                    <div class="store-list">
+                        <div class="store-card">
+                            <h4>HealthLink Accra Central</h4>
+                            <p><i class="fas fa-map-marker-alt"></i> Independence Avenue, Accra</p>
+                            <p><i class="fas fa-clock"></i> Open: 8:00 AM - 10:00 PM</p>
+                            <p class="store-distance"><i class="fas fa-walking"></i> 0.8 miles away</p>
+                            <button class="btn" style="margin-top: 10px;" onclick="selectStore('Accra Central')">Select for Pickup</button>
+                        </div>
+                        <div class="store-card">
+                            <h4>HealthLink Aflao </h4>
+                            <p><i class="fas fa-map-marker-alt"></i> Near Sena's Shop, Aflao</p>
+                            <p><i class="fas fa-clock"></i> Open: 7:00 AM - 11:00 PM</p>
+                            <p class="store-distance"><i class="fas fa-walking"></i> 1.5 miles away</p>
+                            <button class="btn" style="margin-top: 10px;" onclick="selectStore('Aflao Avoeme')">Select for Pickup</button>
+                        </div>
+                        </div>
+                         <div class="store-card">
+                            <h4>HealthLink Cape Coast</h4>
+                            <p><i class="fas fa-map-marker-alt"></i> 789 University Road, Cape Coast</p>
+                            <p><i class="fas fa-clock"></i> Open: 24 Hours</p>
+                            <p class="store-distance"><i class="fas fa-walking"></i> 0.3 miles away</p>
+                            <button class="btn" style="margin-top: 10px;" onclick="selectStore('Cape Coast')">Select for Pickup</button>
+                         </div>
+                         <!DOCTYPE html>
+
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+   
+    <!-- Payment Page -->
+    <section id="payment-page" class="page">
+        <div class="features">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Checkout</h2>
+                    <p>Review your order and complete payment securely</p>
+                </div>
+                <div class="payment-container">
+                    <div class="order-summary">
+                        <h3>Your Order</h3>
+                        <div id="orderItems">
+                            <!-- Order items will be populated by JavaScript -->
+                        </div>
+                        <div class="order-total">
+                            <span>Total:</span>
+                            <span id="orderTotal">GH₵ 0.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-form">
+                        <h3>Select Payment Method</h3>
+                        <div class="payment-methods">
+                            <div class="method-btn" id="momo-btn" onclick="selectPayment('momo')">
+                                <i class="fas fa-mobile-alt"></i>
+                                <div>MTN MoMo</div>
+                            </div>
+                            
+                            <div class="method-btn" id="visa-btn" onclick="selectPayment('visa')">
+                                <i class="fab fa-cc-visa"></i>
+                                <div>Visa Card</div>
+                            </div>
+                        </div>
+                        
+                        <div id="payment-form-container">
+                            <!-- Payment form will be loaded based on selection -->
+                        </div>
+                        
+                        <button type="button" onclick="processPayment()" class="btn submit-btn">Pay Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="margin-bottom: 20px;">
+                        <div class="logo-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="logo-text">Health<span>Link</span></div>
+                    </div>
+                    <p>Your trusted partner in health and wellness, providing quality pharmaceutical care with convenience and compassion.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+               
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#" onclick="showPage('home')">Home</a></li>
+                        <li><a href="#" onclick="showPage('prescription')">Prescription Services</a></li>
+                        <li><a href="#" onclick="showPage('stores')">Store Locator</a></li>
+                        <li><a href="#">Health Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Prescription Refills</a></li>
+                        <li><a href="#">Medication Delivery</a></li>
+                        <li><a href="#">Immunizations</a></li>
+                        <li><a href="#">Health Screenings</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Independence Avenu , Accra</li>
+                         <li><i class="fas fa-map-marker-alt"></i> Near Sena's Shop, Aflao Aveame </li>
+                        <li><i class="fas fa-phone"></i> (233) 53 86 706 93, Cape Coast</li>
+                        <li><i class="fas fa-envelope"></i> info@healthlink-gh.com</li>
+                        <li><i class="fas fa-clock"></i> 24/7 Support</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <div class="ghana-flag">
+                    <div class="ghana-red"></div>
+                    <div class="ghana-yellow"></div>
+                    <div class="ghana-green"></div>
+                </div>
+                <p>&copy; 2023 HealthLink Pharmacy. All rights reserved.</p>
+                <div class="ucc-logo">UCC PHARMACY</div>
+            </div>
+        </div>
+    </footer>
+
+ 
+</body>
+</html>
